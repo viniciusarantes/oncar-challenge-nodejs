@@ -1,0 +1,190 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "OnCar Challenge",
+        "description": "API para manipulação de veículos e simulação de crédito",
+        "version": "1.0.0"
+    },
+    "host": "http://localhost:3000",
+    "basePath": "/",
+    "paths": {
+        "/vehicle": {
+            "get": {
+                "description": "Busca todos os Veículos",
+                "summary": "Retorna lista de veículos",
+                "tags": ["Veículos"],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
+            "post": {
+                "description": "",
+                "summary": "Insere um novo veículo",
+                "tags": ["Veículos"],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Objeto veículo necessário para adicionar um registro",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "brand": {
+                                    "type": "string"
+                                },
+                                "model": {
+                                    "type": "string"
+                                },
+                                "color": {
+                                    "type": "string"
+                                },
+                                "year": {
+                                    "type": "number"
+                                },
+                                "km": {
+                                    "type": "number"
+                                }
+                            },
+                            "example": {
+                                "brand": "Fiat",
+                                "model": "Argo",
+                                "color": "Branco",
+                                "year": 2020,
+                                "km": 42560
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Veículo criado"
+                    },
+                    "400": {
+                        "description": "Dados inválidos"
+                    }
+                }
+            }
+        },
+        "/vehicle/{vehicleId}": {
+            "get": {
+                "tags": [
+                    "Veículos"
+                ],
+                "summary": "Busca um veículo por ID",
+                "description": "Retorna um veículo",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "vehicleId",
+                        "in": "path",
+                        "description": "ID do veículo",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Resultado encontrado",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "brand": {
+                                    "type": "string"
+                                },
+                                "model": {
+                                    "type": "string"
+                                },
+                                "color": {
+                                    "type": "string"
+                                },
+                                "year": {
+                                    "type": "number"
+                                },
+                                "km": {
+                                    "type": "number"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Veículo não encontrado"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Veículos"
+                ],
+                "summary": "Deleta um veículo",
+                "description": "",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "vehicleId",
+                        "in": "path",
+                        "description": "Id do veículo",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Veículo deletado"
+                    },
+                    "404": {
+                        "description": "Veículo não encontrado"
+                    }
+                }
+            }
+        },
+        "/simulation": {
+            "post": {
+                "tags": [
+                    "Simulação"
+                ],
+                "summary": "Realiza uma simulação de crédito",
+                "description": "",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Simulação obtida",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "socre": {
+                                    "type": "number"
+                                },
+                                "approval": {
+                                    "type": "boolean"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
