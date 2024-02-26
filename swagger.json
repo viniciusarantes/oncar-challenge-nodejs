@@ -1,27 +1,34 @@
 {
-    "openapi": "3.0.1",
+    "swagger": "2.0",
     "info": {
         "title": "OnCar Challenge",
         "description": "API para manipulação de veículos e simulação de crédito",
         "version": "1.0.0"
     },
-    "host": "http://localhost:3000",
+    "host": "localhost:3000",
     "basePath": "/",
     "paths": {
-        "/vehicle": {
+        "/vehicles": {
             "get": {
                 "description": "Busca todos os Veículos",
                 "summary": "Retorna lista de veículos",
                 "tags": ["Veículos"],
                 "responses": {
                     "200": {
-                        "description": "OK"
+                        "description": "Consulta realizada com sucesso",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Vehicle"
+                            }
+                        }
                     }
                 }
             },
             "post": {
                 "description": "",
                 "summary": "Insere um novo veículo",
+                "operationId": "addVehicle",
                 "tags": ["Veículos"],
                 "consumes": [
                     "application/json"
@@ -36,31 +43,7 @@
                         "description": "Objeto veículo necessário para adicionar um registro",
                         "required": true,
                         "schema": {
-                            "type": "object",
-                            "properties": {
-                                "brand": {
-                                    "type": "string"
-                                },
-                                "model": {
-                                    "type": "string"
-                                },
-                                "color": {
-                                    "type": "string"
-                                },
-                                "year": {
-                                    "type": "number"
-                                },
-                                "km": {
-                                    "type": "number"
-                                }
-                            },
-                            "example": {
-                                "brand": "Fiat",
-                                "model": "Argo",
-                                "color": "Branco",
-                                "year": 2020,
-                                "km": 42560
-                            }
+                            "$ref": "#/definitions/Vehicle"
                         }
                     }
                 ],
@@ -74,7 +57,7 @@
                 }
             }
         },
-        "/vehicle/{vehicleId}": {
+        "/vehicles/{vehicleId}": {
             "get": {
                 "tags": [
                     "Veículos"
@@ -98,24 +81,7 @@
                     "200": {
                         "description": "Resultado encontrado",
                         "schema": {
-                            "type": "object",
-                            "properties": {
-                                "brand": {
-                                    "type": "string"
-                                },
-                                "model": {
-                                    "type": "string"
-                                },
-                                "color": {
-                                    "type": "string"
-                                },
-                                "year": {
-                                    "type": "number"
-                                },
-                                "km": {
-                                    "type": "number"
-                                }
-                            }
+                            "$ref": "#/definitions/Vehicle"
                         }
                     },
                     "404": {
@@ -184,6 +150,43 @@
                         }
                     }
                 }
+            }
+        }
+    },
+    "definitions": {
+        "Vehicle": {
+            "type": "object",
+            "required": [
+                "brand", "model", "color", "year", "km"
+            ],
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "brand": {
+                    "type": "string",
+                    "example": "Fiat"
+                },
+                "model": {
+                    "type": "string",
+                    "example": "Argo"
+                },
+                "color": {
+                    "type": "string",
+                    "example": "Branco"
+                },
+                "year": {
+                    "type": "integer",
+                    "example": 2018
+                },
+                "km": {
+                    "type": "integer",
+                    "example": 75000
+                }
+            },
+            "xml": {
+                "name": "Vehicle"
             }
         }
     }
