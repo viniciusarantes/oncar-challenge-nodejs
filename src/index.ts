@@ -12,9 +12,11 @@ const app = express()
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-app.use(cors({
-    origin: ['http://localhost:3000']
-}))
+const corsOptions = {
+    origin: '*',
+    optionsSuccessStatus: 200,
+};
+app.use(cors(corsOptions))
 
 // ROUTES
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument))
