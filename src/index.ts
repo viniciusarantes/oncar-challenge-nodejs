@@ -19,6 +19,11 @@ const corsOptions = {
 app.use(cors(corsOptions))
 
 // ROUTES
+const mainRouter = express.Router()
+mainRouter.get("/", (req, res) => {
+    res.end("API works")
+})
+app.use('/', mainRouter)
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument))
 app.use('/vehicles', vehiclesRouter)
 app.use('/simulation', simulationRouter)
